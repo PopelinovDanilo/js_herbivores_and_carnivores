@@ -22,13 +22,7 @@ class Animal {
     return this._health;
   }
 
-  die() {
-    const index = Animal.alive.indexOf(this);
-
-    if (index !== -1) {
-      Animal.alive.splice(index, 1);
-    }
-  }
+  die() {}
 }
 
 class Herbivore extends Animal {
@@ -46,6 +40,9 @@ class Carnivore extends Animal {
   bite(target) {
     if (target instanceof Herbivore && !target.hidden) {
       target.health -= 50;
+
+      // 🔥 Ось тут фільтруємо масив живих після зміни health
+      Animal.alive = Animal.alive.filter((animal) => animal.health > 0);
     }
   }
 }
